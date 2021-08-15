@@ -1,0 +1,4 @@
+#!/usr/bin/env perl
+use NIOS::CLI;
+
+NIOS::CLI->new_with_command->run;

@@ -1,0 +1,6 @@
+.vscode
+.vstags
+inc/
+.pls_cache
+.build
+README.md
