@@ -1,6 +1,6 @@
 package NIOS::CLI::Commands::ref_update;
 
-use v5.32;
+use v5.28;
 use utf8;
 use strict;
 use warnings;

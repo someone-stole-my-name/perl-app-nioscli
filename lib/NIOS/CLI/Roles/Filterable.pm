@@ -1,6 +1,6 @@
 package NIOS::CLI::Roles::Filterable;
 
-use v5.32;
+use v5.28;
 use strict;
 use warnings;
 

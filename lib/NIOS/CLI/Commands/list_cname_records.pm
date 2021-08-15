@@ -1,6 +1,6 @@
 package NIOS::CLI::Commands::list_cname_records;
 
-use v5.32;
+use v5.28;
 use utf8;
 use strict;
 use warnings;

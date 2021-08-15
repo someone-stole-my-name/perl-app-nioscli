@@ -4,7 +4,7 @@ package NIOS::CLI;
 # VERSION
 # AUTHORITY
 
-use v5.32;
+use v5.28;
 use strict;
 use warnings;
 use utf8;

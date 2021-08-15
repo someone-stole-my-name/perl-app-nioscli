@@ -1,6 +1,6 @@
 package NIOS::CLI::Commands::ref_delete;
 
-use v5.32;
+use v5.28;
 use utf8;
 use strict;
 use warnings;
