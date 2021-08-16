@@ -1,20 +1,14 @@
-package NIOS::CLI::Commands::create_host_record;
+## no critic
+package App::NIOSCLI::Commands::create_host_record;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
+use JSON qw(from_json);
 use MooseX::App::Command;
 
-use JSON qw(from_json);
+extends qw(App::NIOSCLI);
 
-extends qw(NIOS::CLI);
-
-with 'NIOS::CLI::Roles::Creatable';
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+with 'App::NIOSCLI::Roles::Creatable';
 
 command_short_description 'Create a HOST record';
 
@@ -51,10 +45,17 @@ has 'payload' => (
             push( @{ $payload->{ipv4addrs} }, { ipv4addr => $_ } );
         }
 
-        $payload->{extattrs} = from_json($self->extattrs) if defined $self->extattrs;
+        $payload->{extattrs} = from_json( $self->extattrs ) if defined $self->extattrs;
 
         return $payload;
     }
+);
+
+has 'path' => (
+    default  => sub { "record:host" },
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1
 );
 
 has 'exe' => (
@@ -70,8 +71,8 @@ has 'exe' => (
     }
 );
 
-sub run ($self) {
-    $self->execute;
+sub run {
+    shift->execute;
 }
 
 1;

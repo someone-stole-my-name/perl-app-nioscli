@@ -1,4 +1,11 @@
 #!/usr/bin/env perl
-use NIOS::CLI;
+use strictures 2;
 
-NIOS::CLI->new_with_command->run;
+# ABSTRACT: CLI for NIOS
+# VERSION
+# AUTHORITY
+
+use App::NIOSCLI;
+$|++;
+
+App::NIOSCLI->new_with_command->run;

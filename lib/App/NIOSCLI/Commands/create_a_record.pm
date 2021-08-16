@@ -1,18 +1,12 @@
-package NIOS::CLI::Commands::create_a_record;
+## no critic
+package App::NIOSCLI::Commands::create_a_record;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
+use JSON qw(from_json);
 use MooseX::App::Command;
 
-use JSON qw(from_json);
-
-extends qw(NIOS::CLI::Commands::create_host_record);
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+extends qw(App::NIOSCLI::Commands::create_host_record);
 
 command_short_description 'Create an A record';
 
@@ -30,14 +24,21 @@ has 'payload' => (
         my $self = shift;
 
         my $payload = {
-            name      => $self->name,
+            name     => $self->name,
             ipv4addr => $self->address
         };
 
-        $payload->{extattrs} = from_json($self->extattrs) if defined $self->extattrs;
+        $payload->{extattrs} = from_json( $self->extattrs ) if defined $self->extattrs;
 
         return $payload;
     }
+);
+
+has 'path' => (
+    default  => "record:a",
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1
 );
 
 has 'exe' => (
@@ -46,7 +47,7 @@ has 'exe' => (
     traits  => ['Code'],
     lazy    => 1,
     default => sub {
-        sub { shift->nios_client->create_a_record(@_); }
+        sub { shift->nios_client->create(@_); }
     },
     handles => {
         call => 'execute'

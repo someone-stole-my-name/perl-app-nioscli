@@ -1,9 +1,8 @@
-package NIOS::CLI::Roles::Filterable;
+## no critic
+package App::NIOSCLI::Roles::Filterable;
 
-use v5.28;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
 use MooseX::App::Role;
 
 option 'filter' => (
@@ -17,6 +16,7 @@ has '_filter_params' => (
     lazy    => 1,
     default => sub {
         my $self = shift;
+
         return $self->filter ? $self->filter : {};
     }
 );

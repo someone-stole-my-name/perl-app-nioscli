@@ -1,14 +1,10 @@
-package NIOS::CLI::Roles::Paginated;
+## no critic
+package App::NIOSCLI::Roles::Paginated;
 
-use strict;
-use warnings;
-
-use MooseX::App::Role;
-
+## use critic
+use strictures 2;
 use JSON qw(from_json to_json);
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+use MooseX::App::Role;
 
 option 'max-results' => (
     is      => 'ro',
@@ -37,6 +33,12 @@ has '_pagination_params' => (
     }
 );
 
+has 'path' => (
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1
+);
+
 has 'results' => (
     is      => 'rw',
     traits  => ['Array'],
@@ -53,7 +55,8 @@ has 'exe' => (
     required => 1
 );
 
-sub add_results ( $self, $results ) {
+sub add_results {
+    my ( $self, $results ) = @_;
     foreach ( @{$results} ) {
         if ( ref($_) eq "ARRAY" ) {
             $self->add_results($_);
@@ -64,8 +67,10 @@ sub add_results ( $self, $results ) {
     }
 }
 
-sub execute ($self) {
-    my $response = $self->exe->( $self, params => $self->params );
+sub execute {
+    my $self = shift;
+    my $response =
+      $self->exe->( $self, path => $self->path, params => $self->params );
 
     $self->add_results( from_json( $response->decoded_content )->{result} );
 
@@ -87,7 +92,8 @@ sub execute ($self) {
     print to_json( $self->results, { utf8 => 1, pretty => 1 } );
 }
 
-sub has_next_page ( $self, $response ) {
+sub has_next_page {
+    my ( $self, $response ) = @_;
     return from_json( $response->decoded_content )->{next_page_id}
       ? from_json( $response->decoded_content )->{next_page_id}
       : 0;

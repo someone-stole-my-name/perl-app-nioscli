@@ -1,25 +1,20 @@
-package NIOS::CLI::Commands::list_ptr_records;
+## no critic
+package App::NIOSCLI::Commands::list_ptr_records;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
 use MooseX::App::Command;
 
-extends qw(NIOS::CLI);
+extends qw(App::NIOSCLI);
 
-with 'NIOS::CLI::Roles::Paginated', 'NIOS::CLI::Roles::Filterable';
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+with 'App::NIOSCLI::Roles::Paginated', 'App::NIOSCLI::Roles::Filterable';
 
 command_short_description 'List PTR Records';
 
 option 'return_fields' => (
-    is        => 'ro',
-    isa       => 'Str',
-    default   => "ptrdname,name,extattrs"
+    is      => 'ro',
+    isa     => 'Str',
+    default => "ptrdname,name,extattrs"
 );
 
 has 'params' => (
@@ -36,21 +31,27 @@ has 'params' => (
     }
 );
 
+has 'path' => (
+    default => "record:ptr",
+    is      => 'ro',
+    isa     => 'Str'
+);
+
 has 'exe' => (
     is      => 'ro',
     isa     => 'CodeRef',
     traits  => ['Code'],
     lazy    => 1,
     default => sub {
-        sub { shift->nios_client->get_ptr_record(@_); }
+        sub { shift->nios_client->get(@_); }
     },
     handles => {
         call => 'execute'
     }
 );
 
-sub run ($self) {
-    $self->execute;
+sub run {
+    shift->execute;
 }
 
 1;

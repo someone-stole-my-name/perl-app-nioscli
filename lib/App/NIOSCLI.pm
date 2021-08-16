@@ -1,23 +1,19 @@
-package NIOS::CLI;
+## no critic
+package App::NIOSCLI;
 
 # ABSTRACT: CLI for NIOS
 # VERSION
 # AUTHORITY
 
-use v5.28;
-use strict;
-use warnings;
-use utf8;
+## use critic
+use strictures 2;
 
-use MooseX::App qw(Color Version);
+use MooseX::App qw(Color Version Config);
 use JSON qw(from_json to_json);
 use NIOS;
 
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
-
 app_strict(1);
-app_namespace 'NIOS::CLI::Commands';
+app_namespace 'App::App::NIOSCLI::Commands';
 app_command_name {
     my ( $package_short, $package_full ) = @_;
     $package_short =~ tr/_/-/;
@@ -62,16 +58,24 @@ option 'insecure' => (
     documentation => 'Ignore SSL errors',
 );
 
+option 'scheme' => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'https'
+);
+
 has 'nios_client' => (
     is      => 'ro',
     isa     => 'Object',
     lazy    => 1,
-    default => sub ($self) {
+    default => sub {
+        my $self = shift;
         return NIOS->new(
             username  => $self->{username},
             password  => $self->{password},
             wapi_addr => $self->{'wapi-host'},
-            insecure  => $self->{insecure}
+            insecure  => $self->{insecure},
+            scheme    => $self->{scheme}
         );
     }
 );

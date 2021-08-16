@@ -1,25 +1,20 @@
-package NIOS::CLI::Commands::list_cname_records;
+## no critic
+package App::NIOSCLI::Commands::list_host_records;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
 use MooseX::App::Command;
 
-extends qw(NIOS::CLI);
+extends qw(App::NIOSCLI);
 
-with 'NIOS::CLI::Roles::Paginated', 'NIOS::CLI::Roles::Filterable';
+with 'App::NIOSCLI::Roles::Paginated', 'App::NIOSCLI::Roles::Filterable';
 
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
-
-command_short_description 'List CNAME Records';
+command_short_description 'List HOST Records';
 
 option 'return_fields' => (
     is      => 'ro',
     isa     => 'Str',
-    default => "name,canonical"
+    default => "ipv4addrs,name,extattrs"
 );
 
 has 'params' => (
@@ -36,21 +31,27 @@ has 'params' => (
     }
 );
 
+has 'path' => (
+    default => "record:host",
+    is      => 'ro',
+    isa     => 'Str'
+);
+
 has 'exe' => (
     is      => 'ro',
     isa     => 'CodeRef',
     traits  => ['Code'],
     lazy    => 1,
     default => sub {
-        sub { shift->nios_client->get_cname_record(@_); }
+        sub { shift->nios_client->get(@_); }
     },
     handles => {
         call => 'execute'
     }
 );
 
-sub run ($self) {
-    $self->execute;
+sub run {
+    shift->execute;
 }
 
 1;

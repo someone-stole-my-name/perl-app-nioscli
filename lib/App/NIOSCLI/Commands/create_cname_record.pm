@@ -1,20 +1,14 @@
-package NIOS::CLI::Commands::create_cname_record;
+## no critic
+package App::NIOSCLI::Commands::create_cname_record;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
+use JSON qw(from_json);
 use MooseX::App::Command;
 
-use JSON qw(from_json);
+extends qw(App::NIOSCLI);
 
-extends qw(NIOS::CLI);
-
-with 'NIOS::CLI::Roles::Creatable';
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+with 'App::NIOSCLI::Roles::Creatable';
 
 command_short_description 'Create a CNAME record';
 
@@ -47,10 +41,16 @@ has 'payload' => (
             canonical => $self->canonical
         };
 
-        $payload->{extattrs} = from_json($self->extattrs) if defined $self->extattrs;
+        $payload->{extattrs} = from_json( $self->extattrs ) if defined $self->extattrs;
 
         return $payload;
     }
+);
+
+has 'path' => (
+    default => "record:cname",
+    is      => 'ro',
+    isa     => 'Str'
 );
 
 has 'exe' => (
@@ -59,15 +59,15 @@ has 'exe' => (
     traits  => ['Code'],
     lazy    => 1,
     default => sub {
-        sub { shift->nios_client->create_cname_record(@_); }
+        sub { shift->nios_client->create(@_); }
     },
     handles => {
         call => 'execute'
     }
 );
 
-sub run ($self) {
-    $self->execute;
+sub run {
+    shift->execute;
 }
 
 1;

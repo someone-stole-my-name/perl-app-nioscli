@@ -1,18 +1,12 @@
-package NIOS::CLI::Commands::ref_update;
+## no critic
+package App::NIOSCLI::Commands::ref_update;
 
-use v5.28;
-use utf8;
-use strict;
-use warnings;
-
+## use critic
+use strictures 2;
+use JSON qw(from_json);
 use MooseX::App::Command;
 
-use JSON qw(from_json);
-
-extends qw(NIOS::CLI);
-
-use feature qw(signatures);
-no warnings qw(experimental::signatures);
+extends qw(App::NIOSCLI);
 
 command_short_description 'Update an Object reference';
 
@@ -28,9 +22,10 @@ option 'json' => (
     required => 1
 );
 
-sub run ($self) {
+sub run {
+    my $self     = shift;
     my $response = $self->nios_client->update(
-        ref => $self->ref,
+        path => $self->ref,
         %{ from_json( $self->json ) }
     );
 
