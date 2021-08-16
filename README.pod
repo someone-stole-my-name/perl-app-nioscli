@@ -1,0 +1,322 @@
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+App::nioscli - CLI for NIOS
+
+=head1 VERSION
+
+version 0.001
+
+=head1 DESCRIPTION
+
+This tool aids the management of the BIND-based DNS included in NIOS appliances.
+The following types of DNS records are supported:
+
+=over
+
+=item * A
+
+=item * AAAA
+
+=item * CNAME
+
+=item * PTR
+
+=item * TXT
+
+=back
+
+=head1 OPTIONS
+
+The following options are global, they apply to all subcommands:
+
+=head2 C<< config >>
+
+Values for all global and specific options can be read from a YAML config file:
+
+    global:
+      username: foo
+      password: bar
+      wapi-host: 10.0.0.1
+
+=head2 C<< insecure >>
+
+Enable or disable verifying SSL certificates.
+
+B<Default>: false
+
+B<ENV>: WAPI_INSECURE
+
+=head2 C<< password >>
+
+Password to use to authenticate the connection to NIOS.
+
+B<ENV>: WAPI_PASSWORD
+
+=head2 C<< scheme >>
+
+B<Default>: https
+
+=head2 C<< username >>
+
+Username to use to authenticate the connection to NIOS.
+
+B<ENV>: WAPI_USERNAME
+
+=head2 C<< wapi-host >>
+
+DNS host name or address of NIOS.
+
+B<ENV>: WAPI_HOST
+
+=head2 C<< wapi-version >>
+
+Specifies the version of WAPI to use.
+
+B<Default>: v2.7
+
+B<ENV>: WAPI_VERSION
+
+=head1 COMMANDS
+
+=head2 create-a-record
+
+=head2 create-cname-record
+
+Create an A record
+
+=over
+
+=item * Create a CNAME record with extattrs:
+
+    nioscli create-cname-record \
+        --name foo.bar \
+        --canonical foobar.bar \
+        --extattrs '{
+            "Cloud API Owned" : { "value" : "True" },
+            "Tenant ID" : { "value" : "foo" },
+            "CMP Type" : { "value" : "bar" }
+        }' [long options...]
+
+=back
+
+=head2 create-host-record
+
+Create a HOST record
+
+=over
+
+=item * Create a HOST record with extattrs
+
+    nioscli create-host-record \
+        --name foo.bar \
+        --address 10.0.0.1 \
+        --address 10.0.0.2 \
+        --extattrs '{
+            "Cloud API Owned" : { "value" : "True" },
+            "Tenant ID" : { "value" : "foo" },
+            "CMP Type" : { "value" : "bar" }
+        }' [long options...]
+
+=back
+
+=head2 list-a-records
+
+List A Records.
+
+=over
+
+=item * List all
+
+    nioscli list-a-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-a-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-a-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-a-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 list-aaaa-records
+
+List AAAA Records.
+
+=over
+
+=item * List all
+
+    nioscli list-aaaa-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-aaaa-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-aaaa-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-aaaa-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 list-cname-records
+
+List CNAME Records.
+
+=over
+
+=item * List all
+
+    nioscli list-cname-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-cname-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-cname-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-cname-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 list-host-records
+
+List HOST Records.
+
+=over
+
+=item * List all
+
+    nioscli list-host-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-host-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-host-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-host-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 list-ptr-records
+
+List PTR Records.
+
+=over
+
+=item * List all
+
+    nioscli list-ptr-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-ptr-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-ptr-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-ptr-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 list-txt-records
+
+List TXT Records.
+
+=over
+
+=item * List all
+
+    nioscli list-txt-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-txt-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-txt-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-txt-records --filter "*Tenant ID:=foo" [long options...]
+
+=back
+
+=head2 ref-delete
+
+Delete an Object reference
+
+=over
+
+=item * Delete an Object reference
+
+    nioscli ref-delete REF [long options...]
+
+=back
+
+=head2 ref-get
+
+Get an Object reference
+
+=over
+
+=item * Get an Object reference
+
+    nioscli ref-get REF [long options...]
+
+=back
+
+=head2 ref-update
+
+Update an Object reference
+
+=over
+
+=item * Update an Object reference
+
+    nioscli ref-update REF \
+        --json '{ "name": "foo" }' \
+        [long options...]
+
+=back
+
+=head1 AUTHOR
+
+Christian Segundo <ssmn@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2021 by Christian Segundo.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0 (GPL Compatible)
+
+
+=cut

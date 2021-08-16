@@ -1,0 +1,13 @@
+Package: nioscli
+Version: ${VERSION}
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Maintainer: Christian Segundo
+Description: CLI for NIOS
+Depends: perl-modules,
+         libsub-identify-perl,
+         libmoose-perl,
+         libperlio-utf8-strict-perl,
+         liblwp-protocol-https-perl
