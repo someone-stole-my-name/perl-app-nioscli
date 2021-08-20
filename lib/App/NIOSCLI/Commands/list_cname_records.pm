@@ -9,8 +9,6 @@ extends qw(App::NIOSCLI);
 
 with 'App::NIOSCLI::Roles::Paginated', 'App::NIOSCLI::Roles::Filterable';
 
-command_short_description 'List CNAME Records';
-
 option 'return_fields' => (
     is      => 'ro',
     isa     => 'Str',
@@ -55,3 +53,33 @@ sub run {
 }
 
 1;
+
+=head1 ABSTRACT
+
+List CNAME Records
+
+=head1 OVERVIEW
+
+List CNAME Records.
+
+=head1 EXAMPLES
+
+=over
+
+=item * List all
+
+    nioscli list-cname-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-cname-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-cname-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-cname-records --filter "*Tenant ID:=foo" [long options...]
+
+=back

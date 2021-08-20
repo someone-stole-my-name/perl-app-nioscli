@@ -8,8 +8,6 @@ use MooseX::App::Command;
 
 extends qw(App::NIOSCLI);
 
-command_short_description 'Get an Object reference';
-
 option 'return_fields' => (
   is  => 'ro',
   isa => 'Str'
@@ -38,3 +36,23 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Get an Object reference
+
+=head1 OVERVIEW
+
+Get an Object reference
+
+=head1 EXAMPLES
+
+=over
+
+=item * Get an Object reference
+
+    nioscli ref-get REF [long options...]
+
+=back

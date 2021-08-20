@@ -45,3 +45,35 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+List TXT Records
+
+=head1 OVERVIEW
+
+List TXT Records.
+
+=head1 EXAMPLES
+
+=over
+
+=item * List all
+
+    nioscli list-txt-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-txt-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-txt-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-txt-records --filter "*Tenant ID:=foo" [long options...]
+
+=back

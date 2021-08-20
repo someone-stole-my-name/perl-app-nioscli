@@ -9,8 +9,6 @@ extends qw(App::NIOSCLI);
 
 with 'App::NIOSCLI::Roles::Paginated', 'App::NIOSCLI::Roles::Filterable';
 
-command_short_description 'List A Records';
-
 option 'return_fields' => (
     is      => 'ro',
     isa     => 'Str',
@@ -55,3 +53,35 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+List A Records
+
+=head1 OVERVIEW
+
+List A Records.
+
+=head1 EXAMPLES
+
+=over
+
+=item * List all
+
+    nioscli list-a-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-a-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-a-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-a-records --filter "*Tenant ID:=foo" [long options...]
+
+=back

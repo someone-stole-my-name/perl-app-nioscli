@@ -8,12 +8,12 @@ package App::NIOSCLI;
 ## use critic
 use strictures 2;
 
-use MooseX::App qw(Color Version Config);
+use MooseX::App qw(Color Version Config Man);
 use JSON qw(from_json to_json);
-use NIOS;
+use DNS::NIOS;
 
 app_strict(1);
-app_namespace 'App::App::NIOSCLI::Commands';
+app_namespace 'App::NIOSCLI::Commands';
 app_command_name {
     my ( $package_short, $package_full ) = @_;
     $package_short =~ tr/_/-/;
@@ -70,7 +70,7 @@ has 'nios_client' => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return NIOS->new(
+        return DNS::NIOS->new(
             username  => $self->{username},
             password  => $self->{password},
             wapi_addr => $self->{'wapi-host'},
@@ -81,3 +81,28 @@ has 'nios_client' => (
 );
 
 1;
+
+__END__
+
+=head1 NAME
+
+nioscli - A CLI to interact with Infoblox DNS
+
+=head1 DESCRIPTION
+
+This tool aids the management of the BIND-based DNS included in NIOS appliances.
+The following types of DNS records are supported:
+
+=over
+
+=item * A
+
+=item * AAAA
+
+=item * CNAME
+
+=item * PTR
+
+=item * TXT
+
+=back

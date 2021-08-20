@@ -10,8 +10,6 @@ extends qw(App::NIOSCLI);
 
 with 'App::NIOSCLI::Roles::Creatable';
 
-command_short_description 'Create a CNAME record';
-
 option 'name' => (
     is       => 'ro',
     isa      => 'Str',
@@ -71,3 +69,30 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Create a CNAME record
+
+=head1 OVERVIEW
+
+Create an A record
+
+=head1 EXAMPLES
+
+=over
+
+=item * Create a CNAME record with extattrs:
+
+    nioscli create-cname-record \
+        --name foo.bar \
+        --canonical foobar.bar \
+        --extattrs '{
+            "Cloud API Owned" : { "value" : "True" },
+            "Tenant ID" : { "value" : "foo" },
+            "CMP Type" : { "value" : "bar" }
+        }' [long options...]
+
+=back

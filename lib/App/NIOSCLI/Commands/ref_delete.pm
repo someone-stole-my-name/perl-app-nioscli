@@ -8,8 +8,6 @@ use MooseX::App::Command;
 
 extends qw(App::NIOSCLI);
 
-command_short_description 'Delete an Object reference';
-
 parameter 'ref' => (
     is       => 'ro',
     isa      => 'Str',
@@ -23,3 +21,23 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Delete an Object reference
+
+=head1 OVERVIEW
+
+Delete an Object reference
+
+=head1 EXAMPLES
+
+=over
+
+=item * Delete an Object reference
+
+    nioscli ref-delete REF [long options...]
+
+=back

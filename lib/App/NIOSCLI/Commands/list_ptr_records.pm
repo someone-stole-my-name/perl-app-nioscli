@@ -55,3 +55,33 @@ sub run {
 }
 
 1;
+
+=head1 ABSTRACT
+
+List PTR Records
+
+=head1 OVERVIEW
+
+List PTR Records.
+
+=head1 EXAMPLES
+
+=over
+
+=item * List all
+
+    nioscli list-ptr-records [long options...]
+
+=item * List filtering by name (exact match)
+
+    nioscli list-ptr-records --filter "name=foo.bar" [long options...]
+
+=item * List filtering by an exact name (regex)
+
+    nioscli list-ptr-records --filter "name~=^foo" [long options...]
+
+=item * List filtering by extattr
+
+    nioscli list-ptr-records --filter "*Tenant ID:=foo" [long options...]
+
+=back

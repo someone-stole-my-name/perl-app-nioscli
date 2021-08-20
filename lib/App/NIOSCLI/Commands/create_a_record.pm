@@ -8,8 +8,6 @@ use MooseX::App::Command;
 
 extends qw(App::NIOSCLI::Commands::create_host_record);
 
-command_short_description 'Create an A record';
-
 option 'address' => (
     is       => 'ro',
     isa      => 'Str',
@@ -55,3 +53,30 @@ has 'exe' => (
 );
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Create an A record
+
+=head1 OVERVIEW
+
+Create an A record
+
+=head1 EXAMPLES
+
+=over
+
+=item * Create an A record with extattrs:
+
+    nioscli create-a-record \
+        --name foo.bar \
+        --address 10.0.0.1 \
+        --extattrs '{
+            "Cloud API Owned" : { "value" : "True" },
+            "Tenant ID" : { "value" : "foo" },
+            "CMP Type" : { "value" : "bar" }
+        }' [long options...]
+
+=back

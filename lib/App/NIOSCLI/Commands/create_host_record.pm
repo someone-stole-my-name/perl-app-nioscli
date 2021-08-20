@@ -10,8 +10,6 @@ extends qw(App::NIOSCLI);
 
 with 'App::NIOSCLI::Roles::Creatable';
 
-command_short_description 'Create a HOST record';
-
 option 'name' => (
     is       => 'ro',
     isa      => 'Str',
@@ -76,3 +74,31 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Create a HOST record
+
+=head1 OVERVIEW
+
+Create a HOST record
+
+=head1 EXAMPLES
+
+=over
+
+=item * Create a HOST record with extattrs
+
+    nioscli create-host-record \
+        --name foo.bar \
+        --address 10.0.0.1 \
+        --address 10.0.0.2 \
+        --extattrs '{
+            "Cloud API Owned" : { "value" : "True" },
+            "Tenant ID" : { "value" : "foo" },
+            "CMP Type" : { "value" : "bar" }
+        }' [long options...]
+
+=back

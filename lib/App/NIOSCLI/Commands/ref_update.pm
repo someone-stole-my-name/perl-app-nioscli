@@ -25,8 +25,8 @@ option 'json' => (
 sub run {
     my $self     = shift;
     my $response = $self->nios_client->update(
-        path => $self->ref,
-        %{ from_json( $self->json ) }
+        path    => $self->ref,
+        payload => from_json( $self->json )
     );
 
     $response->is_success
@@ -35,3 +35,25 @@ sub run {
 }
 
 1;
+
+__END__
+
+=head1 ABSTRACT
+
+Update an Object reference
+
+=head1 OVERVIEW
+
+Update an Object reference
+
+=head1 EXAMPLES
+
+=over
+
+=item * Update an Object reference
+
+    nioscli ref-update REF \
+        --json '{ "name": "foo" }' \
+        [long options...]
+
+=back
