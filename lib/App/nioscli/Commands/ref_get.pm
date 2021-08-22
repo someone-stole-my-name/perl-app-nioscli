@@ -1,12 +1,15 @@
 ## no critic
-package App::NIOSCLI::Commands::ref_get;
+package App::nioscli::Commands::ref_get;
+
+# VERSION
+# AUTHORITY
 
 ## use critic
 use strictures 2;
 use JSON qw(to_json from_json);
 use MooseX::App::Command;
 
-extends qw(App::NIOSCLI);
+extends qw(App::nioscli);
 
 option 'return_fields' => (
   is  => 'ro',
@@ -46,8 +49,6 @@ Get an Object reference
 =head1 OVERVIEW
 
 Get an Object reference
-
-=head1 EXAMPLES
 
 =over
 

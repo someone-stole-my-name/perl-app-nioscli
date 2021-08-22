@@ -1,47 +1,50 @@
 ## no critic
-package App::NIOSCLI::Commands::list_txt_records;
+package App::nioscli::Commands::list_txt_records;
+
+# VERSION
+# AUTHORITY
 
 ## use critic
 use strictures 2;
 use MooseX::App::Command;
 
-extends qw(App::NIOSCLI);
+extends qw(App::nioscli);
 
-with 'App::NIOSCLI::Roles::Paginated', 'App::NIOSCLI::Roles::Filterable';
+with 'App::nioscli::Roles::Paginated', 'App::nioscli::Roles::Filterable';
 
 command_short_description 'List TXT Records';
 
 has 'params' => (
-    is      => 'ro',
-    isa     => 'HashRef',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return { %{ $self->_pagination_params }, %{ $self->_filter_params }, };
-    }
+  is      => 'ro',
+  isa     => 'HashRef',
+  lazy    => 1,
+  default => sub {
+    my $self = shift;
+    return { %{ $self->_pagination_params }, %{ $self->_filter_params }, };
+  }
 );
 
 has 'path' => (
-    default => "record:txt",
-    is      => 'ro',
-    isa     => 'Str'
+  default => "record:txt",
+  is      => 'ro',
+  isa     => 'Str'
 );
 
 has 'exe' => (
-    is      => 'ro',
-    isa     => 'CodeRef',
-    traits  => ['Code'],
-    lazy    => 1,
-    default => sub {
-        sub { shift->nios_client->get(@_); }
-    },
-    handles => {
-        call => 'execute'
-    }
+  is      => 'ro',
+  isa     => 'CodeRef',
+  traits  => ['Code'],
+  lazy    => 1,
+  default => sub {
+    sub { shift->nios_client->get(@_); }
+  },
+  handles => {
+    call => 'execute'
+  }
 );
 
 sub run {
-    shift->execute;
+  shift->execute;
 }
 
 1;
@@ -55,8 +58,6 @@ List TXT Records
 =head1 OVERVIEW
 
 List TXT Records.
-
-=head1 EXAMPLES
 
 =over
 

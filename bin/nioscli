@@ -1,11 +1,14 @@
 #!/usr/bin/env perl
-use strictures 2;
-
+# PODNAME: nioscli
 # ABSTRACT: CLI for NIOS
 # VERSION
 # AUTHORITY
 
-use App::NIOSCLI;
-$|++;
+use App::nioscli;
+App::nioscli->new_with_command->run;
 
-App::NIOSCLI->new_with_command->run;
+__END__
+
+=head1 SEE ALSO
+
+App::nioscli

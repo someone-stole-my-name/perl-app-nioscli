@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 LIB=$1
 FILES=$(find $LIB -name "*.pm" -printf "%p\n")
 
