@@ -48,6 +48,8 @@ __END__
 
 Get an Object reference
 
+B<Examples>
+
 =over
 
 =item * Get an Object reference

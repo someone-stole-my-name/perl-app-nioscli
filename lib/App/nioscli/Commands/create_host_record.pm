@@ -54,13 +54,6 @@ has 'payload' => (
   }
 );
 
-has 'path' => (
-  default  => sub { "record:host" },
-  is       => 'ro',
-  isa      => 'Str',
-  required => 1
-);
-
 has 'exe' => (
   is      => 'ro',
   isa     => 'CodeRef',
@@ -85,6 +78,8 @@ __END__
 =head1 OVERVIEW
 
 Create a HOST record
+
+B<Examples>
 
 =over
 

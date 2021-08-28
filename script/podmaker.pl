@@ -13,7 +13,7 @@ foreach my $command ( sort( read_dir($dirname) ) ) {
 
   my $text = read_file("$dirname/$command");
   $text =~ s/head1/head3/g;
+  $text =~ s/head2/head3/g;
   $text =~ /=head3 OVERVIEW\n\n(.*)/gms;
-
   print("$1\n");
 }

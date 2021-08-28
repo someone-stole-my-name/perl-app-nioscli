@@ -8,8 +8,7 @@ package App::nioscli;
 ## use critic
 use strictures 2;
 
-use MooseX::App qw(Color Version Config);
-use JSON qw(from_json to_json);
+use MooseX::App qw(Color Version Config Man);
 use DNS::NIOS;
 
 app_strict(1);
@@ -86,7 +85,8 @@ has 'nios_client' => (
       password  => $self->{password},
       wapi_addr => $self->{'wapi-host'},
       insecure  => $self->{insecure},
-      scheme    => $self->{scheme}
+      scheme    => $self->{scheme},
+      traits    => [ 'DNS::NIOS::Traits::ApiMethods', 'DNS::NIOS::Traits::AutoPager' ]
     );
   }
 );
@@ -116,51 +116,27 @@ The following types of DNS records are supported:
 
 =head1 OPTIONS
 
-The following options are global, they apply to all subcommands:
+The following options apply to all subcommands:
 
-=head2 C<< config >>
+=over 4
 
-Values for all global and specific options can be read from a YAML config file:
+=item * C<config>: Values for all global and specific options can be read from a YAML config file, eg:
 
     global:
       username: foo
       password: bar
       wapi-host: 10.0.0.1
 
-=head2 C<< insecure >>
+=item * C<insecure>: Enable or disable verifying SSL certificates. Can be set from C<ENV: WAPI_INSECURE>, default is C<false>.
 
-Enable or disable verifying SSL certificates.
+=item * C<password>: Password to use to authenticate the connection to NIOS. Can be set from C<ENV: WAPI_PASSWORD>.
 
-B<Default>: false
+=item * C<scheme>: Default is C<https>.
 
-B<ENV>: WAPI_INSECURE
+=item * C<username>: Username to use to authenticate the connection to NIOS. Can be set from C<ENV: WAPI_USERNAME>.
 
-=head2 C<< password >>
+=item * C<wapi-host>: DNS host name or address of NIOS. Can be set from C<ENV: WAPI_HOST>.
 
-Password to use to authenticate the connection to NIOS.
+=item * C<wapi-version>: Specifies the version of WAPI to use. Can be set from C<ENV: WAPI_VERSION>, default is C<v2.7>.
 
-B<ENV>: WAPI_PASSWORD
-
-=head2 C<< scheme >>
-
-B<Default>: https
-
-=head2 C<< username >>
-
-Username to use to authenticate the connection to NIOS.
-
-B<ENV>: WAPI_USERNAME
-
-=head2 C<< wapi-host >>
-
-DNS host name or address of NIOS.
-
-B<ENV>: WAPI_HOST
-
-=head2 C<< wapi-version >>
-
-Specifies the version of WAPI to use.
-
-B<Default>: v2.7
-
-B<ENV>: WAPI_VERSION
+=back

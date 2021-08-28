@@ -37,20 +37,13 @@ has 'payload' => (
   }
 );
 
-has 'path' => (
-  default  => "record:a",
-  is       => 'ro',
-  isa      => 'Str',
-  required => 1
-);
-
 has 'exe' => (
   is      => 'ro',
   isa     => 'CodeRef',
   traits  => ['Code'],
   lazy    => 1,
   default => sub {
-    sub { shift->nios_client->create(@_); }
+    sub { shift->nios_client->create_a_record(@_); }
   },
   handles => {
     call => 'execute'
@@ -64,6 +57,8 @@ __END__
 =head1 OVERVIEW
 
 Create an A record
+
+B<Examples>
 
 =over
 

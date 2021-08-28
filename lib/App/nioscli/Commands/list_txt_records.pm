@@ -12,23 +12,7 @@ extends qw(App::nioscli);
 
 command_short_description 'List TXT Records';
 
-with 'App::nioscli::Roles::Paginated', 'App::nioscli::Roles::Filterable';
-
-has 'params' => (
-  is      => 'ro',
-  isa     => 'HashRef',
-  lazy    => 1,
-  default => sub {
-    my $self = shift;
-    return { %{ $self->_pagination_params }, %{ $self->_filter_params }, };
-  }
-);
-
-has 'path' => (
-  default => "record:txt",
-  is      => 'ro',
-  isa     => 'Str'
-);
+with 'App::nioscli::Roles::Listable';
 
 has 'exe' => (
   is      => 'ro',
@@ -36,7 +20,7 @@ has 'exe' => (
   traits  => ['Code'],
   lazy    => 1,
   default => sub {
-    sub { shift->nios_client->get(@_); }
+    sub { shift->nios_client->list_txt_records(@_); }
   },
   handles => {
     call => 'execute'
@@ -54,6 +38,8 @@ __END__
 =head1 OVERVIEW
 
 List TXT Records.
+
+B<Examples>
 
 =over
 

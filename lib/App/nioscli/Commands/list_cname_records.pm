@@ -12,32 +12,12 @@ extends qw(App::nioscli);
 
 command_short_description 'List CNAME Records';
 
-with 'App::nioscli::Roles::Paginated', 'App::nioscli::Roles::Filterable';
+with 'App::nioscli::Roles::Listable';
 
-option 'return_fields' => (
+has 'default_return_fields' => (
   is      => 'ro',
   isa     => 'Str',
   default => "name,canonical"
-);
-
-has 'params' => (
-  is      => 'ro',
-  isa     => 'HashRef',
-  lazy    => 1,
-  default => sub {
-    my $self = shift;
-    return {
-      %{ $self->_pagination_params },
-      %{ $self->_filter_params },
-      _return_fields => $self->return_fields
-    };
-  }
-);
-
-has 'path' => (
-  default => "record:cname",
-  is      => 'ro',
-  isa     => 'Str'
 );
 
 has 'exe' => (
@@ -46,7 +26,7 @@ has 'exe' => (
   traits  => ['Code'],
   lazy    => 1,
   default => sub {
-    sub { shift->nios_client->get(@_); }
+    sub { shift->nios_client->list_cname_records(@_); }
   },
   handles => {
     call => 'execute'
@@ -62,6 +42,8 @@ sub run {
 =head1 OVERVIEW
 
 List CNAME Records.
+
+B<Examples>
 
 =over
 
