@@ -45,6 +45,8 @@ __END__
 
 Update an Object reference
 
+B<Examples>
+
 =over
 
 =item * Update an Object reference

@@ -62,7 +62,7 @@ has 'exe' => (
   traits  => ['Code'],
   lazy    => 1,
   default => sub {
-    sub { shift->nios_client->create(@_); }
+    sub { shift->nios_client->create_cname_record(@_); }
   },
   handles => {
     call => 'execute'
@@ -80,6 +80,8 @@ __END__
 =head1 OVERVIEW
 
 Create an A record
+
+B<Examples>
 
 =over
 

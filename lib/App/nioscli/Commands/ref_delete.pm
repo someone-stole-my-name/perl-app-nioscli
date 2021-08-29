@@ -33,6 +33,8 @@ __END__
 
 Delete an Object reference
 
+B<Examples>
+
 =over
 
 =item * Delete an Object reference

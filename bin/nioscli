@@ -6,9 +6,3 @@
 
 use App::nioscli;
 App::nioscli->new_with_command->run;
-
-__END__
-
-=head1 SEE ALSO
-
-App::nioscli
