@@ -18,13 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cpanm --quiet --notest \
-            App::FatPacker \
-            Dist::Zilla \
-            Perl::Critic \
-            Perl::Tidy \
-            File::Slurp \
-            Perl::Stripper
+          cpanm --quiet --notest Dist::Zilla
           dzil authordeps | xargs cpanm --quiet --notest && \
           dzil listdeps --develop | xargs cpanm --quiet --notest
 
