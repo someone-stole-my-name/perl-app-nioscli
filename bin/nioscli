@@ -3,6 +3,6 @@
 # ABSTRACT: CLI for NIOS
 # VERSION
 # AUTHORITY
-
+use strictures 2;
 use App::nioscli;
 App::nioscli->new_with_command->run;
