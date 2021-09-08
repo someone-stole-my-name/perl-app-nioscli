@@ -8,7 +8,7 @@ package App::nioscli;
 ## use critic
 use strictures 2;
 
-use MooseX::App qw(Color Version Config Man);
+use MooseX::App qw(Color Version Config);
 use DNS::NIOS;
 
 app_strict(1);
@@ -138,5 +138,35 @@ The following options apply to all subcommands:
 =item * C<wapi-host>: DNS host name or address of NIOS. Can be set from C<ENV: WAPI_HOST>.
 
 =item * C<wapi-version>: Specifies the version of WAPI to use. Can be set from C<ENV: WAPI_VERSION>, default is C<v2.7>.
+
+=back
+
+=head1 COMMANDS
+
+=over
+
+=item * create-a-record     L<App::nioscli::Commands::create_a_record>
+
+=item * create-cname-record L<App::nioscli::Commands::create_cname_record>
+
+=item * create-host-record  L<App::nioscli::Commands::create_host_record>
+
+=item * list-a-records      L<App::nioscli::Commands::list_a_records>
+
+=item * list-aaaa-records   L<App::nioscli::Commands::list_aaaa_records>
+
+=item * list-cname-records  L<App::nioscli::Commands::list_cname_records>
+
+=item * list-host-records   L<App::nioscli::Commands::list_host_records>
+
+=item * list-ptr-records    L<App::nioscli::Commands::list_ptr_records>
+
+=item * list-txt-records    L<App::nioscli::Commands::list_txt_records>
+
+=item * ref-delete          L<App::nioscli::Commands::ref_delete>
+
+=item * ref-get             L<App::nioscli::Commands::ref_get>
+
+=item * ref-update          L<App::nioscli::Commands::ref_update>
 
 =back
